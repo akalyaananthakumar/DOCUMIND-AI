@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="DocuMind AI - Local RAG document question-answering application"
+    >
+
+    <meta name="theme-color" content="#0f172a">
+
+    <title>DocuMind AI - Local RAG</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                D
+            </div>
+
+            <div>
+                <h1>DocuMind AI</h1>
+                <p>Local Document RAG</p>
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             UPLOAD SECTION
+        ================================================== -->
+
+        <section class="upload-card">
+
+            <h2>Upload Document</h2>
+
+            <p>
+                Upload PDF or TXT files up to 20 MB.
+            </p>
+
+            <input
+                id="fileInput"
+                type="file"
+                accept=".pdf,.txt"
+                hidden
+            >
+
+            <button
+                id="chooseFileBtn"
+                type="button"
+                class="primary-btn"
+            >
+                Choose File
+            </button>
+
+            <div
+                id="selectedFile"
+                class="selected-file"
+            >
+                No file selected
+            </div>
+
+            <button
+                id="uploadBtn"
+                type="button"
+                class="secondary-btn"
+                disabled
+            >
+                Index Document
+            </button>
+
+            <div
+                id="uploadStatus"
+                class="status"
+                aria-live="polite"
+            ></div>
+
+        </section>
+
+
+        <!-- =================================================
+             INDEXED DOCUMENTS
+        ================================================== -->
+
+        <section class="documents-card">
+
+            <div class="section-heading">
+
+                <h2>Indexed Documents</h2>
+
+                <button
+                    id="refreshBtn"
+                    type="button"
+                    class="icon-btn"
+                    title="Refresh documents"
+                    aria-label="Refresh documents"
+                >
+                    ↻
+                </button>
+
+            </div>
+
+
+            <div
+                id="documentList"
+                class="document-list"
+            >
+
+                <div class="empty-state">
+                    No documents indexed yet.
+                </div>
+
+            </div>
+
+
+            <button
+                id="clearBtn"
+                type="button"
+                class="danger-btn"
+            >
+                Clear All
+            </button>
+
+        </section>
+
+
+        <!-- =================================================
+             TECHNOLOGY INFORMATION
+        ================================================== -->
+
+        <div class="tech-note">
+
+            <strong>100% Local AI</strong>
+
+            <span>
+                Ollama + Llama 3.2 1B
+            </span>
+
+            <span>
+                Sentence Transformers + ChromaDB
+            </span>
+
+            <span>
+                Flask + Local RAG
+            </span>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP BAR
+        ================================================== -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="eyebrow">
+                    DOCUMENT QUESTION ANSWERING
+                </p>
+
+                <h2>
+                    Ask Your Documents
+                </h2>
+
+            </div>
+
+
+            <!-- CURRENT MODEL -->
+
+            <div
+                class="model-badge"
+                title="Local Llama model running through Ollama"
+            >
+                ● Llama 3.2 1B · Ollama
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             CHAT AREA
+        ================================================== -->
+
+        <section
+            id="chatArea"
+            class="chat-area"
+            aria-live="polite"
+        >
+
+            <!-- WELCOME CARD -->
+
+            <div class="welcome-card">
+
+                <div class="welcome-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    Welcome to DocuMind AI
+                </h3>
+
+                <p>
+                    Upload a PDF or TXT document,
+                    then ask questions about its content.
+                </p>
+
+
+                <!-- RAG WORKFLOW -->
+
+                <div class="workflow">
+
+                    <span>Upload</span>
+
+                    <b>→</b>
+
+                    <span>Embed</span>
+
+                    <b>→</b>
+
+                    <span>Retrieve</span>
+
+                    <b>→</b>
+
+                    <span>Answer</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CHAT FORM
+        ================================================== -->
+
+        <form
+            id="chatForm"
+            class="chat-form"
+        >
+
+            <input
+                id="questionInput"
+                type="text"
+                autocomplete="off"
+                placeholder="Ask a question about your uploaded documents..."
+                aria-label="Question"
+                maxlength="1000"
+            >
+
+            <button
+                id="sendBtn"
+                type="submit"
+                class="send-btn"
+            >
+                Send
+            </button>
+
+        </form>
+
+
+        <!-- =================================================
+             PRIVACY INFORMATION
+        ================================================== -->
+
+        <p class="privacy-note">
+
+            Your documents, embeddings, and LLM processing
+            stay on your computer.
+
+        </p>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+
+<script
+    src="{{ url_for('static', filename='script.js') }}"
+></script>
+
+</body>
+</html>
